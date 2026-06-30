@@ -16,7 +16,25 @@ async def status(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("🟢 Bot actif sur Railway.")
 
 async def list_products(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("📦 La liste des produits sera ajoutée à l'étape suivante.")
+
+    products = load_products()
+
+    if not products:
+        await update.message.reply_text("Aucun produit surveillé.")
+        return
+
+    text = "📦 Produits surveillés\n\n"
+
+    for i, product in enumerate(products, start=1):
+
+        if product["site"] == "amazon":
+            text += f"{i}. Amazon - {product['asin']}\n"
+
+        else:
+            text += f"{i}. Fnac\n"
+
+    await update.message.reply_text(text)
+    
 
 def build_app():
     app = Application.builder().token(TOKEN).build()
