@@ -1,16 +1,20 @@
-import os
-from telegram import Bot
-import asyncio
+from storage import load_state, save_state
+import json
+import time
 
-TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
-CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
+def load_products():
+    with open("products.json", "r", encoding="utf-8") as f:
+        return json.load(f)
 
-async def main():
-    bot = Bot(token=TOKEN)
-    await bot.send_message(
-        chat_id=CHAT_ID,
-        text="✅ StockPKM est maintenant en ligne sur Railway !"
-    )
+def main():
+    while True:
+        products = load_products()
+        state = load_state()
+
+        # Les modules Amazon/Fnac seront appelés ici.
+
+        save_state(state)
+        time.sleep(60)
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    main()
