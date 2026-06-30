@@ -1,0 +1,3 @@
+checkers/
+├── amazon.py
+└── fnac.py
