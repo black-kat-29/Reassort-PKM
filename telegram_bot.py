@@ -38,7 +38,7 @@ async def list_products(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(text)
     
 
-def build_app():
+def build_app(app.add_handler(CommandHandler("add", add))):
     app = Application.builder().token(TOKEN).build()
 
     app.add_handler(CommandHandler("start", start))
