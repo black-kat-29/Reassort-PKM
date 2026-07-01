@@ -1,3 +1,4 @@
+from product_manager import add_product
 from product_manager import load_products
 from telegram import Update
 from telegram.ext import Application, CommandHandler, ContextTypes
@@ -45,3 +46,20 @@ def build_app():
     app.add_handler(CommandHandler("list", list_products))
 
     return app
+
+async def add(update: Update, context: ContextTypes.DEFAULT_TYPE):
+
+    if len(context.args) == 0:
+        await update.message.reply_text(
+            "Utilisation :\n/add <lien>"
+        )
+        return
+
+    url = context.args[0]
+
+    success, message = add_product(url)
+
+    if success:
+        await update.message.reply_text("✅ " + message)
+    else:
+        await update.message.reply_text("❌ " + message)
