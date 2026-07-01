@@ -53,3 +53,14 @@ def add_product(url):
     save_products(products)
 
     return True, "Produit ajouté."
+
+def remove_product(index):
+    products = load_products()
+
+    if index < 0 or index >= len(products):
+        return False, "Numéro invalide."
+
+    deleted = products.pop(index)
+    save_products(products)
+
+    return True, deleted
