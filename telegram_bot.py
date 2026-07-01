@@ -48,6 +48,7 @@ def build_app():
     app.add_handler(CommandHandler("list", list_products))
     app.add_handler(CommandHandler("add", add))
     app.add_handler(CommandHandler("remove", remove))
+app.add_handler(CommandHandler("check", check))
 
     return app
 
