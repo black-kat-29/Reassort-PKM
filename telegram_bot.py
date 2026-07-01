@@ -1,4 +1,5 @@
 from product_manager import load_products
+from telegram import Update
 from telegram.ext import Application, CommandHandler, ContextTypes
 import os
 
