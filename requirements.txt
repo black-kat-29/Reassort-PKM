@@ -3,3 +3,4 @@ requests
 beautifulsoup4
 lxml
 python-dotenv
+APScheduler==3.10.4
