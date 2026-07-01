@@ -1,3 +1,4 @@
+from stats import load_stats
 from checker import check_products
 from product_manager import remove_product
 from product_manager import add_product
@@ -50,7 +51,8 @@ def build_app():
     app.add_handler(CommandHandler("remove", remove))
     app.add_handler(CommandHandler("check", check))
     app.add_handler(CommandHandler("help", help_command))
-    
+    app.add_handler(CommandHandler("stats", stats_command))
+
     return app
 
 async def add(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -123,6 +125,19 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "/remove <numéro> - Supprimer un produit\n"
         "/check - Vérifier les produits\n"
         "/help - Afficher cette aide"
+    )
+
+    await update.message.reply_text(message)
+
+async def stats_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+
+    stats = load_stats()
+
+    message = (
+        "📊 Statistiques StockPKM\n\n"
+        f"🔍 Vérifications : {stats['checks']}\n"
+        f"🚨 Alertes : {stats['alerts']}\n"
+        f"📦 Produits : {stats['products']}"
     )
 
     await update.message.reply_text(message)
