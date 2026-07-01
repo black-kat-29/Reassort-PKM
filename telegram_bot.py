@@ -49,7 +49,8 @@ def build_app():
     app.add_handler(CommandHandler("add", add))
     app.add_handler(CommandHandler("remove", remove))
     app.add_handler(CommandHandler("check", check))
-
+    app.add_handler(CommandHandler("help", help_command))
+    
     return app
 
 async def add(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -110,3 +111,18 @@ async def check(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
 
     await update.message.reply_text(text)
+
+async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    message = (
+        "🤖 StockPKM\n\n"
+        "Commandes disponibles :\n\n"
+        "/start - Démarrer le bot\n"
+        "/status - Vérifier que le bot fonctionne\n"
+        "/list - Afficher les produits surveillés\n"
+        "/add <lien> - Ajouter un produit\n"
+        "/remove <numéro> - Supprimer un produit\n"
+        "/check - Vérifier les produits\n"
+        "/help - Afficher cette aide"
+    )
+
+    await update.message.reply_text(message)
