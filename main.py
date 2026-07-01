@@ -1,20 +1,9 @@
-from storage import load_state, save_state
-import json
-import time
-
-def load_products():
-    with open("products.json", "r", encoding="utf-8") as f:
-        return json.load(f)
+from telegram_bot import build_app
 
 def main():
-    while True:
-        products = load_products()
-        state = load_state()
-
-        # Les modules Amazon/Fnac seront appelés ici.
-
-        save_state(state)
-        time.sleep(60)
+    app = build_app()
+    print("✅ StockPKM est lancé")
+    app.run_polling()
 
 if __name__ == "__main__":
     main()
