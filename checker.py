@@ -1,6 +1,9 @@
 from product_manager import load_products
+from stats import increment_checks
 
 def check_products():
+    increment_checks()  
+    
     products = load_products()
 
     results = []
