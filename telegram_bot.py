@@ -1,3 +1,4 @@
+from checker import check_products
 from product_manager import remove_product
 from product_manager import add_product
 from product_manager import load_products
@@ -87,3 +88,24 @@ async def remove(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("✅ Produit supprimé.")
     else:
         await update.message.reply_text("❌ " + result)
+
+async def check(update: Update, context: ContextTypes.DEFAULT_TYPE):
+
+    await update.message.reply_text("🔍 Vérification des produits...")
+
+    results = check_products()
+
+    if not results:
+        await update.message.reply_text("Aucun produit enregistré.")
+        return
+
+    text = "📦 Résultat de la vérification\n\n"
+
+    for product in results:
+        text += (
+            f"🏪 {product['site']}\n"
+            f"{product['name']}\n"
+            f"{product['status']}\n\n"
+        )
+
+    await update.message.reply_text(text)
