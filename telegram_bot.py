@@ -1,3 +1,4 @@
+from product_manager import remove_product
 from product_manager import add_product
 from product_manager import load_products
 from telegram import Update
@@ -64,3 +65,24 @@ async def add(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("✅ " + message)
     else:
         await update.message.reply_text("❌ " + message)
+
+async def remove(update: Update, context: ContextTypes.DEFAULT_TYPE):
+
+    if len(context.args) == 0:
+        await update.message.reply_text(
+            "Utilisation :\n/remove <numéro>"
+        )
+        return
+
+    try:
+        index = int(context.args[0]) - 1
+    except ValueError:
+        await update.message.reply_text("❌ Le numéro doit être un entier.")
+        return
+
+    success, result = remove_product(index)
+
+    if success:
+        await update.message.reply_text("✅ Produit supprimé.")
+    else:
+        await update.message.reply_text("❌ " + result)
